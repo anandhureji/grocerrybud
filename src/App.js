@@ -6,13 +6,27 @@ function App() {
 
   const [name,setName] = useState('');
   const [list,setList] =  useState([]);
-  const [isEditing,setIsediting] =  useState(true);
+  const [isEditing,setIsediting] =  useState(false);
   const [editId,setEditid] = useState(null);
   const [alert,setAlert] = useState({show:false,msg:'',type:''});
 
   const handleSubmit =(e)=>{
     e.preventDefault();
-    console.log("form");
+    if(!name)
+    {
+
+    }
+
+    else if(name && isEditing)
+    {
+
+    }
+
+    else{
+      const newItem = {id:new Date().getTime().toString(),title:name};
+      setList([...list,newItem]);
+      setName('');
+    }
   }
 
   return (
@@ -29,13 +43,16 @@ function App() {
         </div>
 
       </form>
-      <div className='grocery-continer'>
-        <List />
-        <button className='clear-btn'>
+      {list.length>0 && (
+        <div className='grocery-continer'>
+        <List  items = {list} />
+        <button className='clear-btn' onClick={()=>{setName('')}}>
           Clear Items
         </button>
 
       </div>
+      )}
+      
 
     </section>
   );
