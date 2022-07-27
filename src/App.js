@@ -19,6 +19,12 @@ function App() {
     setList([]);
   }
 
+  const removeItem = (id) =>{
+    showAlert(true,'danger','Item deleted successfully');
+    setList(list.filter((item)=>item.id!==id))
+
+  }
+
   const handleSubmit =(e)=>{
     e.preventDefault();
     if(!name)
@@ -44,7 +50,7 @@ function App() {
     <section className='section-center'>
 
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert={showAlert} /> }
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} /> }
         <h3>Grocery Shop</h3>
         <div className='form-control'>
           <input type='text' className='grocery' placeholder='Enter the item name' value={name} onChange={(e)=>setName(e.target.value)}></input>
@@ -56,7 +62,7 @@ function App() {
       </form>
       {list.length>0 && (
         <div className='grocery-continer'>
-        <List  items = {list} />
+        <List  items = {list} removeItem = {removeItem} />
         <button className='clear-btn' onClick={clearList}>
           Clear Items
         </button>
