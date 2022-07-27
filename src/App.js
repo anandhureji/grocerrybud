@@ -25,6 +25,15 @@ function App() {
 
   }
 
+
+  const editItem = (id)=>{
+    const specification = list.find((item)=>item.id===id);
+    setIsediting(true);
+    setEditid(id);
+    setName(specification.title);
+  }
+
+
   const handleSubmit =(e)=>{
     e.preventDefault();
     if(!name)
@@ -35,6 +44,20 @@ function App() {
 
     else if(name && isEditing)
     {
+      setList(list.map((item)=>{
+        if(item.id===editId)
+        {
+          return {...item,title:name}
+        }
+        return item
+      })
+      
+      )
+      setName('');
+      setEditid(null);
+      setIsediting(false);
+      showAlert(true,'success','Item Updated');
+
 
     }
 
@@ -62,7 +85,7 @@ function App() {
       </form>
       {list.length>0 && (
         <div className='grocery-continer'>
-        <List  items = {list} removeItem = {removeItem} />
+        <List  items = {list} removeItem = {removeItem} editItem={editItem} />
         <button className='clear-btn' onClick={clearList}>
           Clear Items
         </button>
