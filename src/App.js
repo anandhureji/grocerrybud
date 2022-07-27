@@ -14,6 +14,11 @@ function App() {
     setAlert({show,type,msg});
   }
 
+  const clearList = () =>{
+    showAlert(true,'danger','List is Empty');
+    setList([]);
+  }
+
   const handleSubmit =(e)=>{
     e.preventDefault();
     if(!name)
@@ -52,7 +57,7 @@ function App() {
       {list.length>0 && (
         <div className='grocery-continer'>
         <List  items = {list} />
-        <button className='clear-btn'>
+        <button className='clear-btn' onClick={clearList}>
           Clear Items
         </button>
 
